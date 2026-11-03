@@ -165,6 +165,22 @@ test_that("Inclusion Bayes factor is the posterior inclusion odds divided by the
   expect_gt(checked, 0)
 })
 
+test_that("Residual and forecast error plots run when the dependent variable has missing values", {
+  optionsMissing <- jaspTools::analysisOptions("bayesianStateSpace")
+  optionsMissing$dependent <- "debMiss30"
+  optionsMissing$time <- "dateYear"
+  optionsMissing$localLevelComponent <- TRUE
+  optionsMissing$residualPlot <- TRUE
+  optionsMissing$forecastErrorPlot <- TRUE
+  optionsMissing$samples <- 20
+  set.seed(1)
+  results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", optionsMissing)
+  expect_identical(results[["status"]], "complete")
+  errorPlots <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsErrorPlots"]][["collection"]]
+  expect_length(errorPlots, 2)
+  for (plot in errorPlots) expect_false(isTRUE(plot[["error"]]))
+})
+
 test_that("Inclusion Bayes factor is empty when the prior inclusion probability is 1", {
   optionsInclusion <- jaspTools::analysisOptions("bayesianStateSpace")
   optionsInclusion$dependent <- "contNormal"

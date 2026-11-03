@@ -758,8 +758,8 @@ quantInv <- function(distr, value){
   residuals <- bsts::residuals.bsts(bstsResults,options$burn)
 
   mean <- colMeans(residuals)
-  ymin <- apply(residuals,2,quantile,probs= ((1- options$aggregatedStatesPlotCiLevel)/2))
-  ymax <- apply(residuals,2,quantile,probs= 1-((1- options$aggregatedStatesPlotCiLevel)/2))
+  ymin <- apply(residuals,2,quantile,probs= ((1- options$aggregatedStatesPlotCiLevel)/2), na.rm = TRUE)
+  ymax <- apply(residuals,2,quantile,probs= 1-((1- options$aggregatedStatesPlotCiLevel)/2), na.rm = TRUE)
 
   time <- options$time
 
@@ -787,8 +787,8 @@ quantInv <- function(distr, value){
   errors <- bsts::bsts.prediction.errors(bstsResults,burn=options$burn)$in.sample
 
   mean <- colMeans(errors)
-  ymin <- apply(errors,2,quantile,probs= ((1- options$aggregatedStatesPlotCiLevel)/2))
-  ymax <- apply(errors,2,quantile,probs= 1-((1- options$aggregatedStatesPlotCiLevel)/2))
+  ymin <- apply(errors,2,quantile,probs= ((1- options$aggregatedStatesPlotCiLevel)/2), na.rm = TRUE)
+  ymax <- apply(errors,2,quantile,probs= 1-((1- options$aggregatedStatesPlotCiLevel)/2), na.rm = TRUE)
 
   time <- options$time
 
