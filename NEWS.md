@@ -16,6 +16,9 @@
 
 # jaspBsts (development version)
 
+## Fixed
+* Posterior summary of coefficients: the inclusion Bayes factor was the posterior inclusion odds and ignored the prior inclusion probability. It is now the posterior inclusion odds divided by the prior inclusion odds (unchanged when the prior inclusion probability is 0.5). It is left empty when the prior inclusion probability is 1 (for example with more expected predictors than terms), where it is undefined.
+
 
 
 ---
